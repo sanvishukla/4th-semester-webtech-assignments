@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        form {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        input,
+        select {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 100%;
+        }
+        
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Shopping List</h1>
+    <form id="itemForm">
+        <label for="itemName">Item Name:</label>
+        <input type="text" id="itemName" placeholder="Enter item name">
+        <label for="itemQuantity">Quantity:</label>
+        <input type="number" id="itemQuantity" placeholder="1" value="1">
+        <label for="itemPriority">Priority:</label>
+        <select id="itemPriority">
+<option value="low">Low</option>
+<option value="medium">Medium</option>
+<option value="high">High</option>
+</select>
+        <label for="storeName">Store Name:</label>
+        <input type="text" id="storeName" placeholder="Enter store name">
+
+        <label for="storeSection">Store Section:</label>
+        <input type="text" id="storeSection" placeholder="Enter store section">
+        <label for="itemPrice">Price:</label>
+        <input type="number" id="itemPrice" placeholder="Enter price">
+        <button id="addItemBtn" type="button">Add Item</button>
+    </form>
+    <table id="itemList">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Store</th>
+                <th>Section</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table content will go here -->
+        </tbody>
+    </table>
+    <script>
+        // Model - Item class
+        class Item {
+            constructor(name, quantity, priority, storeName, storeSection, price) {
+                this.name = name;
+                this.quantity = quantity;
+                this.priority = priority;
+                this.storeName = storeName;
+                this.storeSection = storeSection;
+                this.price = price;
+            }
+        }
+        // View
+        const view = {
+            getItemInput: function() {
+                return {
+                    name: document.getElementById("itemName").value,
+
+                    quantity: document.getElementById("itemQuantity").value,
+                    priority: document.getElementById("itemPriority").value,
+                    storeName: document.getElementById("storeName").value,
+                    storeSection: document.getElementById("storeSection").value,
+                    price: document.getElementById("itemPrice").value
+                };
+            },
+            addListItem: function(item) {
+                var table =
+
+                    document.getElementById("itemList").getElementsByTagName('tbody')[0];
+                var newRow = table.insertRow(table.rows.length);
+                var cell1 = newRow.insertCell(0);
+                var cell2 = newRow.insertCell(1);
+                var cell3 = newRow.insertCell(2);
+                var cell4 = newRow.insertCell(3);
+                var cell5 = newRow.insertCell(4);
+                cell1.innerHTML = item.name;
+                cell2.innerHTML = item.quantity;
+                cell3.innerHTML = item.storeName;
+                cell4.innerHTML = item.storeSection;
+                cell5.innerHTML = item.price;
+            }
+        };
+        // Controller
+        const controller = {
+            init: function() {
+                this.setupEventListeners();
+            },
+            setupEventListeners: function() {
+                document.getElementById("addItemBtn").addEventListener("click",
+
+                    function() {
+
+                        const newItem = view.getItemInput();
+                        const item = new Item(newItem.name, newItem.quantity,
+                            newItem.priority, newItem.storeName, newItem.storeSection, newItem.price);
+
+                        view.addListItem(item);
+                    });
+            }
+        };
+
+        controller.init();
+    </script>
+</body>
+
+</html>
