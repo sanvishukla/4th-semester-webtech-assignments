@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tip Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        label {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Tip Calculator</h2>
+    <label for="billAmount">Bill Amount:</label>
+    <input type="number" id="billAmount" min="0" step="0.01">
+    <label for="tipPercentage">Tip Percentage:</label>
+    <input type="number" id="tipPercentage" min="0" max="100" step="1">
+    <label for="split">Number of People:</label>
+    <input type="number" id="split" min="1">
+    <button onclick="calculateTip()">Calculate Tip</button>
+    <div id="result" style="display: none;">
+        <h3>Results</h3>
+        <p>Total Tip: $<span id="totalTip"></span></p>
+        <p>Tip per Person: $<span id="tipPerPerson"></span></p>
+    </div>
+    <script>
+        function calculateTip() {
+            var billAmount = parseFloat(document.getElementById("billAmount").value);
+            var tipPercentage =
+
+                parseFloat(document.getElementById("tipPercentage").value);
+
+            var split = parseInt(document.getElementById("split").value);
+            if (isNaN(billAmount) || isNaN(tipPercentage) || isNaN(split) || billAmount
+
+                <=
+                0 || tipPercentage < 0 || split <= 0) {
+                alert("Please enter valid values.");
+                return;
+            }
+            var totalTip = (billAmount * (tipPercentage / 100)).toFixed(2);
+            var tipPerPerson = (totalTip / split).toFixed(2);
+            document.getElementById("totalTip").textContent = totalTip;
+            document.getElementById("tipPerPerson").textContent = tipPerPerson;
+            document.getElementById("result").style.display = "block";
+        }
+    </script>
+</body>
+
+</html>
